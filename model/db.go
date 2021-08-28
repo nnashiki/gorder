@@ -20,4 +20,5 @@ func init() {
 		log.Fatalln(dsn + "database can't connect")
 	}
 	DB.AutoMigrate(&Product{})
+	DB.AutoMigrate(&User{})
 }

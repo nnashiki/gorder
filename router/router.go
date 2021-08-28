@@ -17,5 +17,7 @@ func Init() *echo.Echo {
 	e.PUT("/api/product/:id", controller.UpdateProduct)
 	e.DELETE("/api/product/:id", controller.DeleteProduct)
 
+	e.GET("/api/user/:id", controller.GetUser)
+	e.POST("/api/user", controller.CreateUser)
 	return e
 }
