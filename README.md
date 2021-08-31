@@ -13,4 +13,11 @@ $ curl http://localhost:1323/api/product/1
 
 $ curl -X POST http://localhost:1323/api/user  -d "name=nashiki"      
 $ curl http://localhost:1323/api/user/1
+
+$ curl -X POST http://localhost:1323/api/order  -d "user_id=1"
+$ curl http://localhost:1323/api/order/2
 ```
+
+# tips
+- gorm を利用した部分的なアップデート
+  - https://gorm.io/docs/update.html#Updates-multiple-columns

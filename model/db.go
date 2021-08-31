@@ -21,4 +21,5 @@ func init() {
 	}
 	DB.AutoMigrate(&Product{})
 	DB.AutoMigrate(&User{})
+	DB.AutoMigrate(&Order{})
 }
