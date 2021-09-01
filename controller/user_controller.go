@@ -29,3 +29,19 @@ func CreateUser(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, user)
 }
+
+func UpdateUser(c echo.Context) error {
+	i, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return err
+	}
+	id := uint(i)
+	email := c.FormValue("email")
+
+	user := model.User{}
+	user.FirstById(id)
+	userNew := model.User{Email: email}
+	user.Updates(userNew)
+
+	return c.JSON(http.StatusOK, user)
+}
