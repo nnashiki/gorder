@@ -25,3 +25,10 @@ docker run --rm --network=host -v $PWD:/work k1low/tbls doc mysql://myuser:passw
 # tips
 - gorm を利用した部分的なアップデート
   - https://gorm.io/docs/update.html#Updates-multiple-columns
+
+# SQLboiler
+
+```shell
+$ sqlboiler mysql -c mysql/sqlboiler.toml -o models --no-tests
+$ go run boiler.go
+```
