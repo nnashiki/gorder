@@ -8,13 +8,16 @@
 ```sql
 CREATE TABLE `orders` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` bigint unsigned DEFAULT NULL,
+  `creator_id` bigint unsigned DEFAULT NULL,
+  `contractor_id` bigint unsigned DEFAULT NULL,
   `create_at` datetime(3) DEFAULT NULL,
   `update_at` datetime(3) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_orders_user` (`user_id`),
-  CONSTRAINT `fk_orders_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=[Redacted by tbls] DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+  KEY `fk_orders_user_creator` (`creator_id`),
+  KEY `fk_orders_user_contractor` (`contractor_id`),
+  CONSTRAINT `fk_orders_user_contractor` FOREIGN KEY (`contractor_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `fk_orders_user_creator` FOREIGN KEY (`creator_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 ```
 
 </details>
@@ -24,7 +27,8 @@ CREATE TABLE `orders` (
 | Name | Type | Default | Nullable | Extra Definition | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | --------------- | -------- | ------- | ------- |
 | id | bigint unsigned |  | false | auto_increment |  |  |  |
-| user_id | bigint unsigned |  | true |  |  | [users](users.md) |  |
+| creator_id | bigint unsigned |  | true |  |  | [users](users.md) |  |
+| contractor_id | bigint unsigned |  | true |  |  | [users](users.md) |  |
 | create_at | datetime(3) |  | true |  |  |  |  |
 | update_at | datetime(3) |  | true |  |  |  |  |
 
@@ -32,14 +36,16 @@ CREATE TABLE `orders` (
 
 | Name | Type | Definition |
 | ---- | ---- | ---------- |
-| fk_orders_user | FOREIGN KEY | FOREIGN KEY (user_id) REFERENCES users (id) |
+| fk_orders_user_contractor | FOREIGN KEY | FOREIGN KEY (contractor_id) REFERENCES users (id) |
+| fk_orders_user_creator | FOREIGN KEY | FOREIGN KEY (creator_id) REFERENCES users (id) |
 | PRIMARY | PRIMARY KEY | PRIMARY KEY (id) |
 
 ## Indexes
 
 | Name | Definition |
 | ---- | ---------- |
-| fk_orders_user | KEY fk_orders_user (user_id) USING BTREE |
+| fk_orders_user_contractor | KEY fk_orders_user_contractor (contractor_id) USING BTREE |
+| fk_orders_user_creator | KEY fk_orders_user_creator (creator_id) USING BTREE |
 | PRIMARY | PRIMARY KEY (id) USING BTREE |
 
 ## Relations

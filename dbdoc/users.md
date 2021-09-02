@@ -9,10 +9,11 @@
 CREATE TABLE `users` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `created_at` datetime(3) DEFAULT NULL,
   `updated_at` datetime(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=[Redacted by tbls] DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 ```
 
 </details>
@@ -23,6 +24,7 @@ CREATE TABLE `users` (
 | ---- | ---- | ------- | -------- | --------------- | -------- | ------- | ------- |
 | id | bigint unsigned |  | false | auto_increment | [orders](orders.md) |  |  |
 | name | varchar(255) |  | false |  |  |  |  |
+| email | varchar(255) |  | false |  |  |  |  |
 | created_at | datetime(3) |  | true |  |  |  |  |
 | updated_at | datetime(3) |  | true |  |  |  |  |
 

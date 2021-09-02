@@ -4,9 +4,9 @@
 
 | Name | Columns | Comment | Type |
 | ---- | ------- | ------- | ---- |
-| [orders](orders.md) | 4 |  | BASE TABLE |
+| [orders](orders.md) | 5 |  | BASE TABLE |
 | [products](products.md) | 5 |  | BASE TABLE |
-| [users](users.md) | 4 |  | BASE TABLE |
+| [users](users.md) | 5 |  | BASE TABLE |
 
 ## Relations
 
