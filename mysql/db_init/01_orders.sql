@@ -10,4 +10,4 @@ CREATE TABLE `orders`
     KEY             `fk_orders_user_contractor` (`contractor_id`),
     CONSTRAINT `fk_orders_user_creator` FOREIGN KEY (`creator_id`) REFERENCES `users` (`id`),
     CONSTRAINT `fk_orders_user_contractor` FOREIGN KEY (`contractor_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
