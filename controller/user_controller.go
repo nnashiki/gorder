@@ -1,11 +1,16 @@
 package controller
 
 import (
-	"goder/model"
+	"context"
+	"github.com/labstack/echo/v4"
+	"github.com/volatiletech/sqlboiler/v4/boil"
+	"github.com/volatiletech/sqlboiler/v4/queries/qm"
+	_ "github.com/volatiletech/sqlboiler/v4/queries/qm"
+	"goder/models"
+	"goder/mysql"
 	"net/http"
 	"strconv"
-
-	"github.com/labstack/echo/v4"
+	"fmt"
 )
 
 func GetUser(c echo.Context) error {
@@ -14,19 +19,32 @@ func GetUser(c echo.Context) error {
 		return err
 	}
 	id := uint(i)
-	user := model.User{}
-	user.FirstById(id)
+	ctx := context.Background()
+	db := mysql.New()
+	user, err := models.Users(
+		qm.Where("id=?",id),
+		).One(ctx, db)
+
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
 
 	return c.JSON(http.StatusOK, user)
 }
 
 func CreateUser(c echo.Context) error {
 	name := c.FormValue("name")
-	user := model.User{
+	ctx := context.Background()
+	db := mysql.New()
+	user := models.User{
 		Name: name,
+		Email: "hoge",
 	}
-	user.Create()
-
+	err := user.Insert(ctx, db, boil.Infer())
+	if err != nil {
+		return err
+	}
 	return c.JSON(http.StatusOK, user)
 }
 
@@ -36,12 +54,13 @@ func UpdateUser(c echo.Context) error {
 		return err
 	}
 	id := uint(i)
+	print(id)
 	email := c.FormValue("email")
-
-	user := model.User{}
-	user.FirstById(id)
-	userNew := model.User{Email: email}
-	user.Updates(userNew)
+	ctx := context.Background()
+	db := mysql.New()
+	user, err := models.Users().One(ctx, db)
+	user.Email = email
+	user.Update(ctx, db, boil.Infer())
 
 	return c.JSON(http.StatusOK, user)
 }
