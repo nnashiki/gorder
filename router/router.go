@@ -19,7 +19,7 @@ func Init() *echo.Echo {
 
 	 */
 
-	e.GET("/api/user/:id", controller.GetUser)
+	e.GET("/api/user/:id", controller.GetUserByID)
 	e.POST("/api/user", controller.CreateUser)
 	e.PATCH("/api/user/:id", controller.UpdateUser)
 

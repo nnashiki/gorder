@@ -8,12 +8,11 @@ Go で order system  を作る
 
 ```shell
 $ go run server.go
-$ curl -X POST http://localhost:1323/api/product  -d "name=hoge&price=100"
-$ curl http://localhost:1323/api/product/1
 
-$ curl -X POST http://localhost:1323/api/user -d "name=nashiki"      
+$ curl -X POST http://localhost:1323/api/user -d 'name=nashiki' -d 'email=nashiki@example.com'      
 $ curl http://localhost:1323/api/user/1
-$ curl -X PATCH http://localhost:1323/api/user/1 -d "email=nashiki@example.com"
+$ curl -X PATCH http://localhost:1323/api/user/1 -d "email=nashiki2@example.com"
+
 
 $ curl -X POST http://localhost:1323/api/order  -d "user_id=1"
 $ curl http://localhost:1323/api/order/2
