@@ -32,6 +32,23 @@ func GetUserByID(c echo.Context) error {
 	return c.JSON(http.StatusOK, user)
 }
 
+func GetUserALL(c echo.Context) error {
+	name := c.Param("name")
+
+	ctx := context.Background()
+	db := mysql.New()
+	user, err := models.Users(
+		qm.Where("name=?", name),
+	).All(ctx, db)
+
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	return c.JSON(http.StatusOK, user)
+}
+
+
 func CreateUser(c echo.Context) error {
 	name := c.FormValue("name")
 	email := c.FormValue("email")
