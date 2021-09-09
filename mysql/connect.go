@@ -6,14 +6,18 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"goder/models"
+	"log"
 )
 
-var db *sql.DB
+var DB *sql.DB
 var err error
 
 func New() *sql.DB {
-	db,err = sql.Open("mysql", "myuser:password@/mydb?parseTime=true")
-	return db
+	DB,err = sql.Open("mysql", "myuser:password@/mydb?parseTime=true")
+	if err != nil {
+		log.Fatal("OpenError: ", err)
+	}
+	return DB
 }
 
 func main() {

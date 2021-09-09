@@ -6,7 +6,6 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/volatiletech/sqlboiler/v4/boil"
 	"github.com/volatiletech/sqlboiler/v4/queries/qm"
-	_ "github.com/volatiletech/sqlboiler/v4/queries/qm"
 	"goder/models"
 	"goder/mysql"
 	"net/http"
@@ -20,10 +19,9 @@ func GetUserByID(c echo.Context) error {
 	}
 	id := uint(i)
 	ctx := context.Background()
-	db := mysql.New()
 	user, err := models.Users(
 		qm.Where("id=?", id),
-	).One(ctx, db)
+	).One(ctx, mysql.DB)
 
 	if err != nil {
 		fmt.Println(err)
@@ -36,10 +34,9 @@ func GetUserALL(c echo.Context) error {
 	name := c.Param("name")
 
 	ctx := context.Background()
-	db := mysql.New()
 	user, err := models.Users(
 		qm.Where("name=?", name),
-	).All(ctx, db)
+	).All(ctx, mysql.DB)
 
 	if err != nil {
 		fmt.Println(err)
@@ -53,12 +50,11 @@ func CreateUser(c echo.Context) error {
 	name := c.FormValue("name")
 	email := c.FormValue("email")
 	ctx := context.Background()
-	db := mysql.New()
 	user := models.User{
 		Name:  name,
 		Email: email,
 	}
-	err := user.Insert(ctx, db, boil.Infer())
+	err := user.Insert(ctx, mysql.DB, boil.Infer())
 	if err != nil {
 		fmt.Println(err)
 		return err
@@ -72,15 +68,13 @@ func UpdateUser(c echo.Context) error {
 		return c.JSON(http.StatusNotFound,err)
 	}
 	id := uint(i)
-	print(id)
 	email := c.FormValue("email")
 	ctx := context.Background()
-	db := mysql.New()
 	user, err := models.Users(
 		qm.Where("id=?", id),
-	).One(ctx, db)
+	).One(ctx, mysql.DB)
 	user.Email = email
-	user.Update(ctx, db, boil.Infer())
+	user.Update(ctx, mysql.DB, boil.Infer())
 
 	return c.JSON(http.StatusOK, user)
 }
