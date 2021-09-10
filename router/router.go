@@ -26,5 +26,6 @@ func Init() *echo.Echo {
 
 	e.GET("/api/order/:id", controller.GetOrderByID)
 	e.POST("api/order", controller.CreateOrder)
+	e.PATCH("api/order/:id", controller.UpdateOrder)
 	return e
 }
