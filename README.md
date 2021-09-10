@@ -15,9 +15,8 @@ $ curl "http://localhost:1323/api/user?name=nashiki"
 $ curl -X PATCH http://localhost:1323/api/user/1 -d "email=nashiki2@example.com"
 
 
-
-$ curl -X POST http://localhost:1323/api/order  -d "user_id=1"
-$ curl http://localhost:1323/api/order/2
+$ curl -X POST http://localhost:1323/api/order -d 'creator_id=1' -d 'contractor_id=2'
+$ curl http://localhost:1323/api/order/1
 ```
 
 # ER図の作成

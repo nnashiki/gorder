@@ -24,7 +24,7 @@ func Init() *echo.Echo {
 	e.GET("/api/user/:id", controller.GetUserByID)
 	e.PATCH("/api/user/:id", controller.UpdateUser)
 
-	//e.GET("/api/order/:id", controller.GetOrder)
+	e.GET("/api/order/:id", controller.GetOrderByID)
 	e.POST("api/order", controller.CreateOrder)
 	return e
 }

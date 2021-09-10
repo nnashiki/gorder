@@ -5,12 +5,30 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/volatiletech/null/v8"
 	"github.com/volatiletech/sqlboiler/v4/boil"
+	"github.com/volatiletech/sqlboiler/v4/queries/qm"
 	"goder/models"
 	"goder/mysql"
 	"net/http"
 	"strconv"
 	"context"
 )
+
+func GetOrderByID(c echo.Context) error {
+	i, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	ctx := context.Background()
+	order, err := models.Orders(
+		qm.Where("id=?",i),
+		).One(ctx, mysql.DB)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	return c.JSON(http.StatusOK, order)
+}
 
 func CreateOrder(c echo.Context) error {
 	creatorIDTmp,_ := strconv.Atoi(c.FormValue("creator_id"))
