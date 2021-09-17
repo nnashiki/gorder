@@ -18,17 +18,22 @@ func TestMain(m *testing.M) {
 
 	mysql.New()
 	ctx := context.Background()
-	ClearUsers(ctx)
+	ClearData(ctx)
 
 	// パッケージ内のテストの実行
 	code := m.Run()
 
 	// 終了処理
 	log.Print("tear-down")
-	ClearUsers(ctx)
+	ClearData(ctx)
 
 	// テストの終了コードで exit
 	os.Exit(code)
+}
+
+func ClearData(ctx context.Context) error {
+	ClearUsers(ctx)
+	return nil
 }
 
 func ClearUsers(ctx context.Context) error {
