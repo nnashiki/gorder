@@ -1,11 +1,15 @@
 package test
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/magiconair/properties/assert"
+	"github.com/volatiletech/sqlboiler/v4/boil"
 	_ "github.com/volatiletech/sqlboiler/v4/boil"
 	_ "github.com/volatiletech/sqlboiler/v4/queries/qm"
 	"goder/models"
 	"goder/mysql"
+	"io/ioutil"
 	"log"
 	"os"
 	"testing"
@@ -20,6 +24,9 @@ func TestMain(m *testing.M) {
 	ctx := context.Background()
 	ClearData(ctx)
 
+	LoadData(ctx)
+	fmt.Println(models.Users().One(ctx,mysql.DB))
+
 	// パッケージ内のテストの実行
 	code := m.Run()
 
@@ -29,6 +36,30 @@ func TestMain(m *testing.M) {
 
 	// テストの終了コードで exit
 	os.Exit(code)
+}
+
+type UsersFixture struct {
+	TestCases []models.User `json:"test_cases"`
+}
+
+func LoadUsers(ctx context.Context) error {
+	b, err := ioutil.ReadFile("testdata/fixture.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+	f := new(UsersFixture)
+	if err := json.Unmarshal(b, f); err != nil {
+		log.Fatal(err)
+	}
+	for _, user  := range f.TestCases{
+		user.Insert(ctx,mysql.DB,boil.Infer())
+	}
+	return nil
+}
+
+func LoadData(ctx context.Context) error {
+	LoadUsers(ctx)
+	return nil
 }
 
 func ClearData(ctx context.Context) error {
