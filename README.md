@@ -33,3 +33,9 @@ docker run --rm --network=host -v $PWD:/work k1low/tbls doc mysql://myuser:passw
 $ sqlboiler mysql -c mysql/sqlboiler.toml -o models --no-tests
 $ go run boiler.go
 ```
+
+# TEST
+
+```shell
+$ go test -v ./test
+```
