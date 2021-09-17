@@ -26,3 +26,4 @@ func main() {
 	m, _ := models.Users().One(ctx,db)
 	fmt.Println("jets:", m)
 }
+
