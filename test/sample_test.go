@@ -1,6 +1,7 @@
 package test
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"github.com/magiconair/properties/assert"
@@ -11,6 +12,7 @@ import (
 	"goder/mysql"
 	"io/ioutil"
 	"log"
+	"net/http"
 	"os"
 	"testing"
 	"context"
@@ -32,7 +34,7 @@ func TestMain(m *testing.M) {
 
 	// 終了処理
 	log.Print("tear-down")
-	ClearData(ctx)
+	//ClearData(ctx)
 
 	// テストの終了コードで exit
 	os.Exit(code)
@@ -80,3 +82,18 @@ func TestHello(t *testing.T) {
 	assert.Equal(t, true,true)
 }
 
+func TestUserPost(t *testing.T) {
+
+	// JsonHandler のテスト
+	b, err := json.Marshal(map[string]interface{}{"name": "nashiki", "email":"nashiki@example.com"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	res, err := http.Post("http://localhost:1323/api/user", "application/json", bytes.NewBuffer(b))
+	if err != nil {
+		t.Error(err)
+	}
+	if res.StatusCode != http.StatusOK {
+		t.Errorf("invalid response: %v", res)
+	}
+}

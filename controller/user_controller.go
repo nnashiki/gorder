@@ -47,12 +47,10 @@ func GetUserALL(c echo.Context) error {
 
 
 func CreateUser(c echo.Context) error {
-	name := c.FormValue("name")
-	email := c.FormValue("email")
+	user := new(models.User)
 	ctx := context.Background()
-	user := models.User{
-		Name:  name,
-		Email: email,
+	if err := c.Bind(&user); err != nil {
+		return err
 	}
 	err := user.Insert(ctx, mysql.DB, boil.Infer())
 	if err != nil {
