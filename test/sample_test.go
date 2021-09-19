@@ -96,4 +96,10 @@ func TestUserPost(t *testing.T) {
 	if res.StatusCode != http.StatusOK {
 		t.Errorf("invalid response: %v", res)
 	}
+	resp := models.User{}
+	if err := json.NewDecoder(res.Body).Decode(&resp); err != nil {
+		t.Error(err)
+	}
+	res.Body.Close()
+	assert.Equal(t, resp.Name,"nashiki")
 }
