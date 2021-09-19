@@ -40,6 +40,7 @@ $ go run boiler.go
 https://qiita.com/nirasan/items/b357f0ad9172ab9fa19b#%E3%83%86%E3%82%B9%E3%83%88%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E3%83%95%E3%82%A3%E3%82%AF%E3%82%B9%E3%83%81%E3%83%A3%E3%83%BC%E3%82%92%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%82%80
 https://tech.raksul.com/2017/10/11/running-tdd-with-bdd-style-stories/
 https://qiita.com/seya/items/582c2bdcca4ad50b03b7#%E8%BF%BD%E8%A8%98
+https://qiita.com/theoden9014/items/ac8763381758148e8ce5
 
 ```shell
 $ go test -v ./test

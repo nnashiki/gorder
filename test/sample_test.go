@@ -10,9 +10,11 @@ import (
 	_ "github.com/volatiletech/sqlboiler/v4/queries/qm"
 	"goder/models"
 	"goder/mysql"
+	"goder/router"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/http/httptest"
 	"os"
 	"testing"
 	"context"
@@ -84,12 +86,17 @@ func TestHello(t *testing.T) {
 
 func TestUserPost(t *testing.T) {
 
+	// test server を起動
+	routers := router.Init()
+	testServer := httptest.NewServer(routers)
+	defer testServer.Close()
+
 	// JsonHandler のテスト
 	b, err := json.Marshal(map[string]interface{}{"name": "nashiki", "email":"nashiki@example.com"})
 	if err != nil {
 		t.Fatal(err)
 	}
-	res, err := http.Post("http://localhost:1323/api/user", "application/json", bytes.NewBuffer(b))
+	res, err := http.Post(testServer.URL+"/api/user", "application/json", bytes.NewBuffer(b))
 	if err != nil {
 		t.Error(err)
 	}
