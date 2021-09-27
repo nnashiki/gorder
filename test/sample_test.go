@@ -31,6 +31,8 @@ func TestMain(m *testing.M) {
 	LoadData(ctx)
 	fmt.Println(models.Users().One(ctx,mysql.DB))
 
+
+
 	// パッケージ内のテストの実行
 	code := m.Run()
 
@@ -84,11 +86,15 @@ func TestHello(t *testing.T) {
 	assert.Equal(t, true,true)
 }
 
-func TestUserPost(t *testing.T) {
-
+func ServerInit() *httptest.Server {
 	// test server を起動
 	routers := router.Init()
-	testServer := httptest.NewServer(routers)
+	return httptest.NewServer(routers)
+}
+
+func TestUserPost(t *testing.T) {
+
+	testServer := ServerInit()
 	defer testServer.Close()
 
 	// JsonHandler のテスト
