@@ -15,22 +15,24 @@ func TestUserPostの200(t *testing.T) {
 	defer testServer.Close()
 
 	// JsonHandler のテスト
-	b, err := json.Marshal(map[string]interface{}{"name": "nashiki", "email":"nashiki@example.com"})
+	params := map[string]interface{}{"name": "nashiki", "email": "nashiki@example.com"}
+	b, err := json.Marshal(params)
 	if err != nil {
 		t.Fatal(err)
 	}
-	res, err := http.Post(testServer.URL+"/api/user", "application/json", bytes.NewBuffer(b))
+	response, err := http.Post(testServer.URL+"/api/user",
+		"application/json", bytes.NewBuffer(b))
 	if err != nil {
 		t.Error(err)
 	}
-	if res.StatusCode != http.StatusOK {
-		t.Errorf("invalid response: %v", res)
+	if response.StatusCode != http.StatusOK {
+		t.Errorf("invalid response: %v", response)
 	}
 	resp := models.User{}
-	if err := json.NewDecoder(res.Body).Decode(&resp); err != nil {
+	if err := json.NewDecoder(response.Body).Decode(&resp); err != nil {
 		t.Error(err)
 	}
-	res.Body.Close()
-
-	assert.Equal(t, resp.Name,"nashiki")
+	response.Body.Close()
+	assert.Equal(t, response.StatusCode, http.StatusOK)
+	assert.Equal(t, resp.Name, "nashiki")
 }
