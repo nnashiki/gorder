@@ -3,13 +3,13 @@ package test
 import (
 	"bytes"
 	"encoding/json"
+	"github.com/magiconair/properties/assert"
 	"goder/models"
 	"net/http"
 	"testing"
-	"github.com/magiconair/properties/assert"
 )
 
-func TestUserPost(t *testing.T) {
+func TestUserPostの200(t *testing.T) {
 
 	testServer := ServerInit()
 	defer testServer.Close()
@@ -31,5 +31,6 @@ func TestUserPost(t *testing.T) {
 		t.Error(err)
 	}
 	res.Body.Close()
+
 	assert.Equal(t, resp.Name,"nashiki")
 }
